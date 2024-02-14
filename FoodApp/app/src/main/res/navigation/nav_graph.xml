@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment2">
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="com.example.foodapp.modules.signup.view.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment2"
+        android:name="com.example.foodapp.modules.login.view.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment2_to_signupFragment"
+            app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment2_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.foodapp.modules.home.view.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_listAllMeals"
+            app:destination="@id/listAllMeals" />
+        <action
+            android:id="@+id/action_homeFragment_to_signOutFragment"
+            app:destination="@id/signoutFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.foodapp.modules.favorite.view.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/optionsFragment"
+        android:name="com.example.foodapp.modules.Options.view.OptionsFragment"
+        android:label="fragment_options"
+        tools:layout="@layout/fragment_options" />
+    <fragment
+        android:id="@+id/listAllMeals"
+        android:name="com.example.foodapp.modules.ListOfMeals.view.ListAllMealsFragment"
+        android:label="fragment_list_all_meals"
+        tools:layout="@layout/fragment_list_all_meals" >
+        <argument
+            android:name="categoryName"
+            app:argType="string" />
+        <argument
+            android:name="areaMeals"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/signoutFragment2"
+        android:name="com.example.foodapp.SignOutFragment"
+        android:label="fragment_sign_out2"
+        tools:layout="@layout/fragment_sign_out2" >
+        <action
+            android:id="@+id/action_signoutFragment2_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+    </fragment>
+</navigation>
