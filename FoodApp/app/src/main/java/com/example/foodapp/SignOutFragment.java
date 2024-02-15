@@ -45,6 +45,7 @@ public class SignOutFragment extends Fragment {
         auth=FirebaseAuth.getInstance();
         user= auth.getCurrentUser();
 
+
         signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

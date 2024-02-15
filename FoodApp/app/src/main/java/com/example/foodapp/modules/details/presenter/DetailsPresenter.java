@@ -1,60 +1,57 @@
-package com.example.foodapp.modules.home.presenter;
+package com.example.foodapp.modules.details.presenter;
 
 import com.example.foodapp.model.FoodCategory;
 import com.example.foodapp.model.FoodCountryResponse;
 import com.example.foodapp.model.Meal;
-import com.example.foodapp.modules.home.view.HomeInterface;
+import com.example.foodapp.modules.details.view.DetailsInterface;
 import com.example.foodapp.network.AppRemoteDataSource;
 import com.example.foodapp.network.NetworkCallBack;
 
 import java.util.List;
 
-public class HomePresenter implements NetworkCallBack{
-    HomeInterface homeInterface;
+public class DetailsPresenter implements NetworkCallBack {
     AppRemoteDataSource appRemoteDataSource;
-    public HomePresenter(HomeInterface homeInterface)
-    {
-        this.homeInterface= homeInterface;
-        appRemoteDataSource=AppRemoteDataSource.getInstance();
-        appRemoteDataSource.setNetworkCallBack(this);
-        appRemoteDataSource.getMealCategories();
-        appRemoteDataSource.getCountries();
-        appRemoteDataSource.getRandomMeal();
+    DetailsInterface detailsInterface;
 
-        //appRemoteDataSource.getRandomMeal(String catogry);
+    public DetailsPresenter( DetailsInterface detailsInterface,String id) {
+        this.appRemoteDataSource = AppRemoteDataSource.getInstance();
+        appRemoteDataSource.setNetworkCallBack(this);
+        this.detailsInterface = detailsInterface;
+        appRemoteDataSource.getMealDetail(id);
     }
+
     @Override
     public void onGetCategoriesSuccess(List<FoodCategory> categoryList) {
-        homeInterface.showCategories(categoryList);
+
     }
 
     @Override
     public void onGetCategoriesFailure(Throwable error) {
-        homeInterface.showCategoriesError(error);
+
     }
 
     @Override
     public void onGetCountriesSuccessful(List<FoodCountryResponse.FoodCountry> foodCountries) {
-        homeInterface.showCountries(foodCountries);
+
     }
 
     @Override
     public void onGetCountriesFailure(Throwable throwable) {
-        homeInterface.showCountriesError(throwable);
+
     }
 
     @Override
     public void onGetRandomMealSuccessful(Meal meal) {
-        homeInterface.showRandomMeal(meal);
+
     }
 
     @Override
     public void onGetRandomMealFailure(Throwable throwable) {
-        homeInterface.showRandomMealError(throwable);
+
     }
 
     @Override
-    public void onGetCategoriesListNameSuccess(List List) {
+    public void onGetCategoriesListNameSuccess(List<Meal> mealList) {
 
     }
 
@@ -76,10 +73,11 @@ public class HomePresenter implements NetworkCallBack{
     @Override
     public void onGetMealSuccess(List<Meal> meal) {
 
+        detailsInterface.showMealDetails(meal);
     }
 
     @Override
     public void onGetMealFailure(Throwable throwable) {
-
+          detailsInterface.showMealDetailsError(throwable);
     }
 }

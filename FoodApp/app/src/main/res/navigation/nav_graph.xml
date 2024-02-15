@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_homeFragment_to_signOutFragment"
             app:destination="@id/signoutFragment2" />
+        <action
+            android:id="@+id/action_homeFragment_to_detailsMealFragment"
+            app:destination="@id/detailsMealFragment" />
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
@@ -58,6 +61,9 @@
         <argument
             android:name="areaMeals"
             app:argType="string" />
+        <action
+            android:id="@+id/action_listAllMeals_to_detailsMealFragment"
+            app:destination="@id/detailsMealFragment" />
     </fragment>
     <fragment
         android:id="@+id/signoutFragment2"
@@ -67,5 +73,14 @@
         <action
             android:id="@+id/action_signoutFragment2_to_loginFragment2"
             app:destination="@id/loginFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsMealFragment"
+        android:name="com.example.foodapp.modules.details.view.DetailsMealFragment"
+        android:label="fragment_details_meal"
+        tools:layout="@layout/fragment_details_meal" >
+        <argument
+            android:name="IDMeal"
+            app:argType="string" />
     </fragment>
 </navigation>

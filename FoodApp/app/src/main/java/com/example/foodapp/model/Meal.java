@@ -1,6 +1,7 @@
 package com.example.foodapp.model;
 
 public class Meal {
+    String idMeal;
     String strMeal;
     String strDrinkAlternate;
     String strCategory;
@@ -27,7 +28,7 @@ public class Meal {
     String strImageSource;
     String strCreativeCommonsConfirmed;
 
-    public Meal(String strMeal, String strDrinkAlternate, String strCategory, String strArea, String strInstructions, String strMealThumb, String strTags, String strYoutube, String strIngredient1, String strIngredient2, String strIngredient3, String strIngredient4, String strIngredient5, String strIngredient6, String strIngredient7, String strMeasure1, String strMeasure2, String strMeasure3, String strMeasure4, String strMeasure5, String strMeasure6, String strMeasure7, String strSource, String strImageSource, String strCreativeCommonsConfirmed) {
+    public Meal(String strMeal, String strDrinkAlternate, String strCategory, String strArea, String strInstructions, String strMealThumb, String strTags, String strYoutube, String strIngredient1, String strIngredient2, String strIngredient3, String strIngredient4, String strIngredient5, String strIngredient6, String strIngredient7, String strMeasure1, String strMeasure2, String strMeasure3, String strMeasure4, String strMeasure5, String strMeasure6, String strMeasure7, String strSource, String strImageSource, String strCreativeCommonsConfirmed,String idMeal) {
         this.strMeal = strMeal;
         this.strDrinkAlternate = strDrinkAlternate;
         this.strCategory = strCategory;
@@ -53,6 +54,13 @@ public class Meal {
         this.strSource = strSource;
         this.strImageSource = strImageSource;
         this.strCreativeCommonsConfirmed = strCreativeCommonsConfirmed;
+        this.idMeal=idMeal;
+    }
+    public String getIdMeal(){
+        return idMeal;
+    }
+    public void setIdMeal(String idMeal){
+        this.idMeal=idMeal;
     }
 
     public String getStrMeal() {

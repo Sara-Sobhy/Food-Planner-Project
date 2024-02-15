@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class LoginFragment extends Fragment {
@@ -32,6 +33,15 @@ public class LoginFragment extends Fragment {
     TextView signUp;
     TextView guest;
     FirebaseAuth mAuth;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentuser=mAuth.getCurrentUser();
+        if(currentuser!=null){
+            Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment2_to_homeFragment);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,7 +63,7 @@ public class LoginFragment extends Fragment {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(rootview).navigate(R.id.action_signupFragment_to_loginFragment2);
+                Navigation.findNavController(rootview).navigate(R.id.action_loginFragment2_to_signupFragment);
             }
         });
         guest.setOnClickListener(new View.OnClickListener() {

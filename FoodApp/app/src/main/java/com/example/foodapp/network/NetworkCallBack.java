@@ -19,4 +19,8 @@ public interface NetworkCallBack {
    //Area Meals
     public void onGetAreaListNameSuccess(List<Meal> mealList);
     public void onGetAreaListNameFailure(Throwable throwable);
+    //meal details
+    public void onGetMealSuccess(List<Meal> meal);
+    public void onGetMealFailure(Throwable throwable);
+
 }

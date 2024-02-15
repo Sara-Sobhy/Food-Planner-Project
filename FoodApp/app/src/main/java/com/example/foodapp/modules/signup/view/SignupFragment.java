@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class SignupFragment extends Fragment {
@@ -29,6 +30,15 @@ public class SignupFragment extends Fragment {
     Button signUp;
     FirebaseAuth mAuth;
     TextView login;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentuser=mAuth.getCurrentUser();
+        if(currentuser!=null){
+            Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment2_to_homeFragment);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

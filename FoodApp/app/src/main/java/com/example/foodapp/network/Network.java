@@ -27,4 +27,6 @@ public interface Network {
     @GET("filter.php")
     Call<MealsResponse> getMealByArea(@Query("a") String categoryName);
 
+    @GET("lookup.php")
+    Call<MealsResponse> getMealDetail(@Query("i") String mealDetail);
 }

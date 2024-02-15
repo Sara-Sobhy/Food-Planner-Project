@@ -26,15 +26,14 @@ public class ListOfMealsPresenter implements NetworkCallBack {
   }
 
   public void getMealsbyCategory(String categories){
+
     appRemoteDataSource.getMealList(categories);
   }
   public void getMealsbyarea(String area){
+
     appRemoteDataSource.getMealByArea(area);
   }
-  private boolean isCategory(String categories) {
-    List<String> categoryNames = Arrays.asList("Beef", "Chicken", "Seafood");
-    return categoryNames.contains(categories);
-  }
+
     @Override
     public void onGetCategoriesSuccess(List<FoodCategory> categoryList) {
 
@@ -83,5 +82,15 @@ public class ListOfMealsPresenter implements NetworkCallBack {
   @Override
   public void onGetAreaListNameFailure(Throwable throwable) {
      listMealsNameInterface.showMealByAreaError(throwable);
+  }
+
+  @Override
+  public void onGetMealSuccess(List<Meal> meal) {
+
+  }
+
+  @Override
+  public void onGetMealFailure(Throwable throwable) {
+
   }
 }
