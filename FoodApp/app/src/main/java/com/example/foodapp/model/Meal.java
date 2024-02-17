@@ -1,7 +1,16 @@
 package com.example.foodapp.model;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "meal_table")
 public class Meal {
+    @PrimaryKey
+    @NonNull
     String idMeal;
+    //emailuser
+    String userEmail;
     String strMeal;
     String strDrinkAlternate;
     String strCategory;
@@ -28,7 +37,7 @@ public class Meal {
     String strImageSource;
     String strCreativeCommonsConfirmed;
 
-    public Meal(String strMeal, String strDrinkAlternate, String strCategory, String strArea, String strInstructions, String strMealThumb, String strTags, String strYoutube, String strIngredient1, String strIngredient2, String strIngredient3, String strIngredient4, String strIngredient5, String strIngredient6, String strIngredient7, String strMeasure1, String strMeasure2, String strMeasure3, String strMeasure4, String strMeasure5, String strMeasure6, String strMeasure7, String strSource, String strImageSource, String strCreativeCommonsConfirmed,String idMeal) {
+    public Meal(String strMeal, String strDrinkAlternate, String strCategory, String strArea, String strInstructions, String strMealThumb, String strTags, String strYoutube, String strIngredient1, String strIngredient2, String strIngredient3, String strIngredient4, String strIngredient5, String strIngredient6, String strIngredient7, String strMeasure1, String strMeasure2, String strMeasure3, String strMeasure4, String strMeasure5, String strMeasure6, String strMeasure7, String strSource, String strImageSource, String strCreativeCommonsConfirmed,String idMeal,String userEmail) {
         this.strMeal = strMeal;
         this.strDrinkAlternate = strDrinkAlternate;
         this.strCategory = strCategory;
@@ -55,7 +64,10 @@ public class Meal {
         this.strImageSource = strImageSource;
         this.strCreativeCommonsConfirmed = strCreativeCommonsConfirmed;
         this.idMeal=idMeal;
+        this.userEmail=userEmail;
     }
+    public String getUserEmail(){return userEmail;}
+    public void setUserEmail(String userEmail){this.userEmail=userEmail;}
     public String getIdMeal(){
         return idMeal;
     }

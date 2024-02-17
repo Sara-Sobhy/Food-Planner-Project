@@ -7,4 +7,5 @@ import java.util.List;
 public interface DetailsInterface {
     public void showMealDetails(List<Meal> meal);
     public void showMealDetailsError(Throwable throwable);
+
 }

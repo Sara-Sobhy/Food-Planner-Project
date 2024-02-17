@@ -1,13 +1,23 @@
 package com.example.foodapp.modules.home.presenter;
 
+import android.util.Log;
+
 import com.example.foodapp.model.FoodCategory;
+import com.example.foodapp.model.FoodCategoryResponse;
 import com.example.foodapp.model.FoodCountryResponse;
 import com.example.foodapp.model.Meal;
+import com.example.foodapp.model.MealsResponse;
 import com.example.foodapp.modules.home.view.HomeInterface;
 import com.example.foodapp.network.AppRemoteDataSource;
 import com.example.foodapp.network.NetworkCallBack;
 
 import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class HomePresenter implements NetworkCallBack{
     HomeInterface homeInterface;
@@ -17,11 +27,85 @@ public class HomePresenter implements NetworkCallBack{
         this.homeInterface= homeInterface;
         appRemoteDataSource=AppRemoteDataSource.getInstance();
         appRemoteDataSource.setNetworkCallBack(this);
-        appRemoteDataSource.getMealCategories();
-        appRemoteDataSource.getCountries();
-        appRemoteDataSource.getRandomMeal();
+        getMealCatgory();
+        getMealCountry();
+        getRandomMeal();
 
         //appRemoteDataSource.getRandomMeal(String catogry);
+    }
+    public void getMealCatgory(){
+        appRemoteDataSource.getMealCategories().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FoodCategoryResponse>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull FoodCategoryResponse foodCategoryResponse) {
+                       homeInterface.showCategories(foodCategoryResponse.getList());
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+    public void getMealCountry(){
+        appRemoteDataSource.getCountries().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<FoodCountryResponse>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull FoodCountryResponse foodCountryResponse) {
+                         homeInterface.showCountries(foodCountryResponse.getMeals());
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+
+    }
+    public void getRandomMeal(){
+        appRemoteDataSource.getRandomMeal().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MealsResponse>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull MealsResponse mealsResponse) {
+                        Log.d("TAG", "onNext: "+mealsResponse.getMealList().get(0));
+                        homeInterface.showRandomMeal(mealsResponse.getMealList().get(0));
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
     @Override
     public void onGetCategoriesSuccess(List<FoodCategory> categoryList) {

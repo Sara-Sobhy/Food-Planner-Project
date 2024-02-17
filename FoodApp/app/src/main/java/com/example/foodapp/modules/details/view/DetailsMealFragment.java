@@ -1,5 +1,7 @@
 package com.example.foodapp.modules.details.view;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,9 +20,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.foodapp.R;
+import com.example.foodapp.database.LocalDataSource;
 import com.example.foodapp.model.Meal;
+import com.example.foodapp.model.MealRepository;
 import com.example.foodapp.modules.ListOfMeals.view.MealsNameRecycleerAdapter;
 import com.example.foodapp.modules.details.presenter.DetailsPresenter;
+import com.example.foodapp.network.AppRemoteDataSource;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -37,6 +42,8 @@ public class DetailsMealFragment extends Fragment implements DetailsInterface {
    ImageView imageView;
    RecyclerView recyclerView;
    IngredientsAdapter ingredientsAdapter;
+    DetailsPresenter detailsPresenter;
+    String email;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,9 +64,11 @@ public class DetailsMealFragment extends Fragment implements DetailsInterface {
         textViewStruction=view.findViewById(R.id.tvInstruction);
         btnAdd=view.findViewById(R.id.btn_fav);
         imageView=view.findViewById(R.id.imageView4);
+        SharedPreferences sp = getContext().getSharedPreferences("email", Context.MODE_PRIVATE);
+        email= sp.getString("Email","");
         if (getArguments() != null) {
               id=getArguments().getString("IDMeal");
-              DetailsPresenter detailsPresenter=new DetailsPresenter(this,id);
+              detailsPresenter=new DetailsPresenter(this, MealRepository.getInstance(LocalDataSource.getInstance(this.getContext()), AppRemoteDataSource.getInstance()),id);
         }
         return view;
     }
@@ -78,6 +87,16 @@ public class DetailsMealFragment extends Fragment implements DetailsInterface {
         ingredientsAdapter= new IngredientsAdapter(meal,this.getContext());
         recyclerView.setAdapter(ingredientsAdapter);
         setMealVideo(meal1.getStrYoutube());
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                meal.get(0).setUserEmail(email);
+                detailsPresenter.insert(meal.get(0));
+
+            }
+        });
     }
 
     @Override

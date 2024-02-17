@@ -50,6 +50,13 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+//room
+    var room_version = "2.6.1"
+    implementation ("androidx.room:room-runtime:$room_version")
+    annotationProcessor ("androidx.room:room-compiler:$room_version")
 
+    implementation ("androidx.room:room-rxjava3:2.6.1")
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.0")
+    implementation ("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
 
 }

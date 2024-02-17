@@ -1,6 +1,9 @@
 package com.example.foodapp.modules.login.view;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -33,6 +36,7 @@ public class LoginFragment extends Fragment {
     TextView signUp;
     TextView guest;
     FirebaseAuth mAuth;
+    SharedPreferences sp;
 
     @Override
     public void onStart() {
@@ -60,6 +64,8 @@ public class LoginFragment extends Fragment {
         guest=rootview.findViewById(R.id.asGuestText);
         mAuth=FirebaseAuth.getInstance();
 
+        sp= getContext().getSharedPreferences("email", MODE_PRIVATE);
+
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +92,12 @@ public class LoginFragment extends Fragment {
                                     @Override
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
+
+                                            String currentUserEmail = mAuth.getCurrentUser().getEmail();
+                                            SharedPreferences.Editor editor=sp.edit();
+                                            editor.putString("Email",currentUserEmail);
+                                            editor.apply();
+
                                             Toast.makeText(getContext(), "Success",
                                                     Toast.LENGTH_SHORT).show();
                                             Navigation.findNavController(rootview).navigate(R.id.action_loginFragment2_to_homeFragment);

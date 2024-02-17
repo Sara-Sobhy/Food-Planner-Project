@@ -3,64 +3,82 @@ package com.example.foodapp.modules.favorite.view;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.foodapp.R;
+import com.example.foodapp.database.LocalDataSource;
+import com.example.foodapp.model.Meal;
+import com.example.foodapp.model.MealRepository;
+import com.example.foodapp.modules.favorite.presenter.FavoritePresenter;
+import com.example.foodapp.network.AppRemoteDataSource;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FavoriteFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class FavoriteFragment extends Fragment {
+import org.reactivestreams.Subscription;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.List;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.FlowableSubscriber;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
-    public FavoriteFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FavoriteFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FavoriteFragment newInstance(String param1, String param2) {
-        FavoriteFragment fragment = new FavoriteFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class FavoriteFragment extends Fragment implements IFavourite{
 
+    RecyclerView recyclerView;
+    //FavoriteAdapter favoriteAdapter;
+    FavoritePresenter favoritePresenter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite, container, false);
+        View view= inflater.inflate(R.layout.fragment_favorite, container, false);
+        recyclerView = view.findViewById(R.id.RCFav);
+        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this.getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        favoritePresenter = new FavoritePresenter(this, MealRepository.getInstance(LocalDataSource.getInstance(requireContext()), AppRemoteDataSource.getInstance()), requireContext());
+        favoritePresenter.getProducts();
+        return view;
+    }
+
+    @Override
+    public void showMeal(Flowable<List<Meal>> mealList) {
+        String currentUserEmail= FirebaseAuth.getInstance().getCurrentUser().getEmail();
+        Log.d("TAG", "showMeal: aaaaaaaaaaaaa" +currentUserEmail);
+
+        mealList.subscribeOn(Schedulers.io())
+                .doOnNext(meals -> Log.d("TAG", "showMeal: "+meals.size()))
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(mealItems -> {
+                    // Filter the meal items based on the user's email
+                    return mealItems.removeIf(mealItem -> !mealItem.getUserEmail().equals(currentUserEmail));
+                })
+
+                .subscribe(meals -> {
+                    Log.d("TAG", "onChanged: "+meals);
+                    if (meals != null) {
+                        FavoriteAdapter favoriteRecyclerAdapter = new FavoriteAdapter(meals, requireContext(), FavoriteFragment.this);
+                        recyclerView.setAdapter(favoriteRecyclerAdapter);
+                        favoriteRecyclerAdapter.notifyDataSetChanged();
+                    }
+                });
     }
 }

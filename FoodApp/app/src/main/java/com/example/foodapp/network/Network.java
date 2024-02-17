@@ -1,5 +1,7 @@
 package com.example.foodapp.network;
 
+
+
 import com.example.foodapp.model.FoodCategory;
 import com.example.foodapp.model.FoodCategoryResponse;
 import com.example.foodapp.model.FoodCountryResponse;
@@ -8,6 +10,7 @@ import com.example.foodapp.model.MealsResponse;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.http.GET;
@@ -15,18 +18,18 @@ import retrofit2.http.Query;
 
 public interface Network {
     @GET("categories.php")
-    public Call<FoodCategoryResponse> getCategories();
+    public Observable<FoodCategoryResponse> getCategories();
     @GET("list.php?a=list")
-    public Call<FoodCountryResponse> getCountries();
+    public Observable<FoodCountryResponse> getCountries();
     @GET("random.php")
-    public Call<MealsResponse> getMealOfTheDay();
+    public Observable<MealsResponse> getMealOfTheDay();
 
     @GET("filter.php")
-    Call<MealsResponse> getMealByCategory(@Query("c") String categoryName);
+    Observable<MealsResponse> getMealByCategory(@Query("c") String categoryName);
 
     @GET("filter.php")
-    Call<MealsResponse> getMealByArea(@Query("a") String categoryName);
+    Observable<MealsResponse> getMealByArea(@Query("a") String categoryName);
 
     @GET("lookup.php")
-    Call<MealsResponse> getMealDetail(@Query("i") String mealDetail);
+    Observable<MealsResponse> getMealDetail(@Query("i") String mealDetail);
 }

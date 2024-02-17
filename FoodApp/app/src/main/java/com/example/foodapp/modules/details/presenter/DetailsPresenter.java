@@ -1,24 +1,38 @@
 package com.example.foodapp.modules.details.presenter;
 
+import com.example.foodapp.database.LocalDataSource;
 import com.example.foodapp.model.FoodCategory;
 import com.example.foodapp.model.FoodCountryResponse;
 import com.example.foodapp.model.Meal;
+import com.example.foodapp.model.MealRepository;
 import com.example.foodapp.modules.details.view.DetailsInterface;
 import com.example.foodapp.network.AppRemoteDataSource;
 import com.example.foodapp.network.NetworkCallBack;
 
 import java.util.List;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+
 public class DetailsPresenter implements NetworkCallBack {
     AppRemoteDataSource appRemoteDataSource;
     DetailsInterface detailsInterface;
+    MealRepository mealRepository;
 
-    public DetailsPresenter( DetailsInterface detailsInterface,String id) {
+    public DetailsPresenter( DetailsInterface detailsInterface,MealRepository mealRepository,String id) {
         this.appRemoteDataSource = AppRemoteDataSource.getInstance();
         appRemoteDataSource.setNetworkCallBack(this);
         this.detailsInterface = detailsInterface;
-        appRemoteDataSource.getMealDetail(id);
+        this.mealRepository=mealRepository;
+        getAllMeals(id);
+//        appRemoteDataSource.getMealDetail(id);
     }
+    public void getAllMeals(String id)
+    {
+        mealRepository.getAllMeals(id)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(mealsResponse -> detailsInterface.showMealDetails(mealsResponse.getMealList()) );
+    }
+
 
     @Override
     public void onGetCategoriesSuccess(List<FoodCategory> categoryList) {
@@ -79,5 +93,9 @@ public class DetailsPresenter implements NetworkCallBack {
     @Override
     public void onGetMealFailure(Throwable throwable) {
           detailsInterface.showMealDetailsError(throwable);
+    }
+
+    public void insert(Meal meal){
+        mealRepository.insertMeal(meal);
     }
 }

@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment implements HomeInterface  {
 
     @Override
     public void showRandomMeal(Meal meal) {
-        Glide.with(this.getContext())
+      Glide.with(this.getContext())
                 .load(meal.getStrMealThumb())
                 .centerCrop()
                 .into(dailyImg);

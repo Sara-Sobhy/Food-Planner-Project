@@ -3,12 +3,19 @@ package com.example.foodapp.modules.ListOfMeals.presenter;
 import com.example.foodapp.model.FoodCategory;
 import com.example.foodapp.model.FoodCountryResponse;
 import com.example.foodapp.model.Meal;
+import com.example.foodapp.model.MealsResponse;
 import com.example.foodapp.modules.ListOfMeals.view.ListMealsNameInterface;
 import com.example.foodapp.network.AppRemoteDataSource;
 import com.example.foodapp.network.NetworkCallBack;
 
 import java.util.Arrays;
 import java.util.List;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class ListOfMealsPresenter implements NetworkCallBack {
 
@@ -27,11 +34,55 @@ public class ListOfMealsPresenter implements NetworkCallBack {
 
   public void getMealsbyCategory(String categories){
 
-    appRemoteDataSource.getMealList(categories);
+    appRemoteDataSource.getMealList(categories)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer<MealsResponse>() {
+                @Override
+                public void onSubscribe(@NonNull Disposable d) {
+
+                }
+
+                @Override
+                public void onNext(@NonNull MealsResponse mealsResponse) {
+                      listMealsNameInterface.showCategoriesName(mealsResponse.getMealList());
+                }
+
+                @Override
+                public void onError(@NonNull Throwable e) {
+
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+            });
   }
   public void getMealsbyarea(String area){
 
-    appRemoteDataSource.getMealByArea(area);
+    appRemoteDataSource.getMealByArea(area)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Observer<MealsResponse>() {
+              @Override
+              public void onSubscribe(@NonNull Disposable d) {
+
+              }
+
+              @Override
+              public void onNext(@NonNull MealsResponse mealsResponse) {
+                  listMealsNameInterface.showMealByArea(mealsResponse.getMealList());
+              }
+
+              @Override
+              public void onError(@NonNull Throwable e) {
+
+              }
+
+              @Override
+              public void onComplete() {
+
+              }
+            });
   }
 
     @Override
