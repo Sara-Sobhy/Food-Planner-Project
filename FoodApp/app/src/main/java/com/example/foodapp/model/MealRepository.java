@@ -48,4 +48,20 @@ public class MealRepository implements RepositoryInterface{
     public void deleteMeal(Meal meal) {
        localDataSource.delete(meal);
     }
+
+    @Override
+    public Flowable<List<Plane>> getStoredMealPlan() {
+        return localDataSource.getPlans();
+    }
+
+    @Override
+    public void insertMealPlan(Plane plane) {
+          localDataSource.insertPlan(plane);
+    }
+
+    @Override
+    public void deleteMealPlan(Plane plane) {
+        localDataSource.deletePan(plane);
+
+    }
 }

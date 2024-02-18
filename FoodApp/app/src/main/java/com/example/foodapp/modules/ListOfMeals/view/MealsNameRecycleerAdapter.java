@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodapp.R;
 import com.example.foodapp.model.Meal;
-import com.example.foodapp.modules.home.view.CategoriesRecyclerAdapter;
 
 import java.util.List;
 
@@ -47,6 +45,7 @@ public class MealsNameRecycleerAdapter extends RecyclerView.Adapter<MealsNameRec
         Meal meal=mealsList.get(position);
         Log.d("TAG", "onBindViewHolder: "+mealsList.get(position).getStrMeal());
         holder.tvCategory.setText(mealsList.get(position).getStrMeal());
+        holder.tvArea.setText(mealsList.get(position).getStrArea());
         Glide.with(context)
                 .load(mealsList.get(position).getStrMealThumb())
                 .into(holder.categoryImg);
@@ -70,6 +69,7 @@ public class MealsNameRecycleerAdapter extends RecyclerView.Adapter<MealsNameRec
     public class ViewHandler extends RecyclerView.ViewHolder {
         ImageView categoryImg;
         TextView tvCategory;
+        TextView tvArea;
         CardView cardView;
 
         public ViewHandler(@NonNull View itemView) {
@@ -77,6 +77,7 @@ public class MealsNameRecycleerAdapter extends RecyclerView.Adapter<MealsNameRec
             categoryImg= itemView.findViewById(R.id.imageView);
             tvCategory=itemView.findViewById(R.id.tvOne);
             cardView=itemView.findViewById(R.id.btncard);
+            tvArea=itemView.findViewById(R.id.tvtwo);
 
         }
     }

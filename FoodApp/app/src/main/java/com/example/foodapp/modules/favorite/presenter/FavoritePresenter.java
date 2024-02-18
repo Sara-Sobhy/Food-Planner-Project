@@ -22,21 +22,22 @@ public class FavoritePresenter implements NetworkCallBack {
     IFavourite iFavourite;
     MealRepository mealRepository;
     Context context;
-    SharedPreferences sp ;
-    String email;
+
     public FavoritePresenter(IFavourite iFavourite, MealRepository mealRepository,Context context) {
 
         this.iFavourite = iFavourite;
         this.mealRepository = mealRepository;
         this.context=context;
-        sp = context.getSharedPreferences("email", Context.MODE_PRIVATE);
-        sp.getString("userEmail","");
+
 
     }
     public void getProducts()
     {
-        iFavourite.showMeal(mealRepository.getStoredMeal());////////////////////////////
+        iFavourite.showMeal(mealRepository.getStoredMeal());
 
+    }
+    public void removeMeal(Meal meal){
+        mealRepository.deleteMeal(meal);
     }
     @Override
     public void onGetCategoriesSuccess(List<FoodCategory> categoryList) {

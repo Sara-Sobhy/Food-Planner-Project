@@ -15,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.foodapp.R;
 import com.example.foodapp.model.Meal;
-import com.example.foodapp.modules.ListOfMeals.view.MealsNameRecycleerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -44,10 +42,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyView
 
             Log.d("TAG", "onBindViewHolderiiiiiiiiiiiiiii: " + mealList.get(position).getStrMeal());
             holder.textOne.setText(mealList.get(position).getStrMeal());
+            holder.textTwo.setText(mealList.get(position).getStrArea());
             Glide.with(context)
                     .load(mealList.get(position).getStrMealThumb())
                     .into(holder.img);
 
+            holder.btnDeleteFav.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    iFavourite.removeMeal(mealList.get(position));
+                }
+            });
     }
 
     @Override
@@ -63,7 +68,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.MyView
             super(itemView);
             img= itemView.findViewById(R.id.imageView);
             textOne=itemView.findViewById(R.id.tvOne);
-            textTwo=itemView.findViewById(R.id.tvTwo);
+            textTwo=itemView.findViewById(R.id.textView5);
             btnDeleteFav=itemView.findViewById(R.id.btnDeleteFav);
         }
     }

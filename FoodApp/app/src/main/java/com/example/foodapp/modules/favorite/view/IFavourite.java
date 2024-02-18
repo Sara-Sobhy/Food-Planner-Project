@@ -10,5 +10,6 @@ import io.reactivex.rxjava3.core.Flowable;
 
 public interface IFavourite {
     void showMeal(Flowable<List<Meal>> mealList);
+    public void removeMeal(Meal meal);
 
 }

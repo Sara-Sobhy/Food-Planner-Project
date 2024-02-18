@@ -45,20 +45,19 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/categoryRecycler"
-            android:layout_width="0dp"
-            android:layout_height="270dp"
-            android:layout_marginTop="4dp"
+            android:layout_width="176dp"
+            android:layout_height="347dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView12"
             tools:listitem="@layout/recycler_view_item" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
+            android:layout_width="333dp"
+            android:layout_height="161dp"
             android:layout_marginTop="16dp"
             app:cardCornerRadius="24dp"
             app:cardElevation="24dp"
@@ -68,15 +67,13 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraintRandom"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="351dp"
+                android:layout_height="327dp">
 
                 <ImageView
                     android:id="@+id/dailyImg"
-                    android:layout_width="360dp"
-                    android:layout_height="133dp"
-                    android:layout_marginTop="16dp"
-                    android:src="@drawable/pasta"
+                    android:layout_width="338dp"
+                    android:layout_height="171dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -86,13 +83,18 @@
                     android:id="@+id/tvDaily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Pizza"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"
+                    android:text="Meal"
+                    android:textColor="#FFFEFE"
+                    android:textSize="20sp"
+                    android:textStyle="bold|italic"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.468"
+                    app:layout_constraintHorizontal_bias="0.05"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.846" />
+                    app:layout_constraintVertical_bias="0.442" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
@@ -109,44 +111,36 @@
             android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="12dp"
             android:text="@string/categories_text"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
             app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-        <TextView
-            android:id="@+id/textView13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/view_all"
-            app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/textView12" />
 
         <TextView
             android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="240dp"
+            android:layout_marginTop="12dp"
             android:text="@string/countries_list"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/categoryRecycler" />
-
-        <TextView
-            android:id="@+id/textView15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/view_all"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/textView14" />
+            app:layout_constraintHorizontal_bias="0.121"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/countryRecycler"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="16dp"
+            android:layout_width="183dp"
+            android:layout_height="345dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guideline2" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

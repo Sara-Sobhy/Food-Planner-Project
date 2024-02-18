@@ -15,9 +15,9 @@
         android:id="@+id/webview"
         android:layout_width="379dp"
         android:layout_height="186dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="@+id/RCIngredient"
-        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="@+id/RCIngredient"
         app:layout_constraintTop_toBottomOf="@+id/RCIngredient" />
 
@@ -43,13 +43,14 @@
 
     <Button
         android:id="@+id/btn_fav"
-        android:layout_width="93dp"
+        android:layout_width="94dp"
         android:layout_height="51dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:backgroundTint="@color/light"
-        android:text="ADD"
+        android:text="Love"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.947"
         app:layout_constraintStart_toEndOf="@+id/area"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
@@ -60,6 +61,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="28dp"
         android:text="Category:"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/area"
         app:layout_constraintHorizontal_bias="0.087"
@@ -84,19 +86,20 @@
         android:id="@+id/area"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="196dp"
+        android:layout_marginStart="72dp"
         android:text="TextView"
+        android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:layout_constraintVertical_bias="0.41" />
+        app:layout_constraintVertical_bias="0.737" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="301dp" />
+        app:layout_constraintGuide_begin="326dp" />
 
     <TextView
         android:id="@+id/textView16"
@@ -105,44 +108,46 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="20dp"
         android:text="Instruction :"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/guideline5"
         app:layout_constraintTop_toTopOf="@+id/guideline6" />
 
-      <TextView
-          android:id="@+id/tvInstruction"
-          android:layout_width="244dp"
-          android:layout_height="wrap_content"
-          android:layout_marginStart="76dp"
-          android:layout_marginTop="8dp"
-          android:text="TextView"
-          app:layout_constraintStart_toStartOf="@+id/guideline5"
-          app:layout_constraintTop_toBottomOf="@+id/textView16" />
+    <TextView
+        android:id="@+id/tvInstruction"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="4dp"
-        android:text="Area:"
+        android:text="Area      :"
+        android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/category"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
         app:layout_constraintEnd_toStartOf="@+id/area"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/categoryid"
+        app:layout_constraintVertical_bias="0.176" />
 
     <TextView
         android:id="@+id/category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/categoryid"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/categoryid"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <TextView
         android:id="@+id/textView10"
@@ -150,9 +155,21 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:text="Ingredients"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/RCIngredient"
         app:layout_constraintEnd_toEndOf="@+id/textView16"
         app:layout_constraintStart_toStartOf="@+id/textView16" />
+
+    <Button
+        android:id="@+id/btnPlane"
+        android:layout_width="100dp"
+        android:layout_height="49dp"
+        android:backgroundTint="@color/light"
+        android:text="ADD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintStart_toEndOf="@+id/textView16"
+        app:layout_constraintTop_toTopOf="@+id/btn_fav" />
   </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

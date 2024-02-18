@@ -14,4 +14,8 @@ public interface RepositoryInterface {
     public Flowable<List<Meal>> getStoredMeal();
     public void insertMeal(Meal meal);
     public void deleteMeal(Meal meal);
+
+    public Flowable<List<Plane>> getStoredMealPlan();
+    public void insertMealPlan(Plane plane);
+    public void deleteMealPlan(Plane plane);
 }

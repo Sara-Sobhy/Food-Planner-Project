@@ -46,7 +46,7 @@
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" />
     <fragment
-        android:id="@+id/optionsFragment"
+        android:id="@+id/planeFragment"
         android:name="com.example.foodapp.modules.Options.view.OptionsFragment"
         android:label="fragment_options"
         tools:layout="@layout/fragment_options" />
@@ -83,4 +83,14 @@
             android:name="IDMeal"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.foodapp.modules.search.view.searchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/planeFragment"
+        android:name="com.example.foodapp.modules.plane.view.planeFragment"
+        android:label="fragment_plane"
+        tools:layout="@layout/fragment_plane" />
 </navigation>

@@ -1,5 +1,6 @@
 package com.example.foodapp.modules.details.view;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,9 +25,15 @@ import com.example.foodapp.R;
 import com.example.foodapp.database.LocalDataSource;
 import com.example.foodapp.model.Meal;
 import com.example.foodapp.model.MealRepository;
+import com.example.foodapp.model.Plane;
 import com.example.foodapp.modules.ListOfMeals.view.MealsNameRecycleerAdapter;
 import com.example.foodapp.modules.details.presenter.DetailsPresenter;
 import com.example.foodapp.network.AppRemoteDataSource;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.sql.Date;
+import java.util.Calendar;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -44,6 +52,9 @@ public class DetailsMealFragment extends Fragment implements DetailsInterface {
    IngredientsAdapter ingredientsAdapter;
     DetailsPresenter detailsPresenter;
     String email;
+    Button btnplane;
+
+    Date date;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -63,6 +74,7 @@ public class DetailsMealFragment extends Fragment implements DetailsInterface {
         textViewArea=view.findViewById(R.id.area);
         textViewStruction=view.findViewById(R.id.tvInstruction);
         btnAdd=view.findViewById(R.id.btn_fav);
+        btnplane=view.findViewById(R.id.btnPlane);
         imageView=view.findViewById(R.id.imageView4);
         SharedPreferences sp = getContext().getSharedPreferences("email", Context.MODE_PRIVATE);
         email= sp.getString("Email","");
@@ -75,6 +87,12 @@ public class DetailsMealFragment extends Fragment implements DetailsInterface {
 
     @Override
     public void showMealDetails(List<Meal> meal) {
+        String currentUserEmail = null;
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            currentUserEmail = firebaseUser.getEmail();
+        }
+
         Log.d("TAG", "showMealDetails: meallllllllllllllllllll"+meal);
         Meal meal1=meal.get(0);
         textViewCategory.setText(meal1.getStrCategory());
@@ -88,6 +106,8 @@ public class DetailsMealFragment extends Fragment implements DetailsInterface {
         recyclerView.setAdapter(ingredientsAdapter);
         setMealVideo(meal1.getStrYoutube());
 
+        if(currentUserEmail!=null){
+            btnAdd.setVisibility(View.VISIBLE);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,6 +117,31 @@ public class DetailsMealFragment extends Fragment implements DetailsInterface {
 
             }
         });
+        }else {
+            btnAdd.setVisibility(View.GONE);
+        }
+
+        if(currentUserEmail!=null){
+        btnplane.setOnClickListener(v -> {
+            Calendar calendar= Calendar.getInstance();
+            DatePickerDialog dialog=new DatePickerDialog(this.getContext(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                    Log.d("TAG", "onDateSet: " + month);
+                    //setText(String.valueOf(year)+"/"+String.valueOf((Calendar.MONTH+month)-1)+"/"+String.valueOf(dayOfMonth));
+                    date=new Date(year-1900,(Calendar.MONTH+month)-2,dayOfMonth);
+                    Log.d("TAG", "showPlanPopUp: "+ date);
+                    String email= FirebaseAuth.getInstance().getCurrentUser().getEmail();
+                    Log.d("TAG", "onDateSet: email " + meal1.getUserEmail());
+                    Plane plane=new Plane(meal1.getIdMeal(),email,meal1.getStrMeal(),meal1.getStrMealThumb(),date);
+                    detailsPresenter.insertPlan(plane);
+                }
+            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            dialog.show();
+        });
+        }else {
+            btnplane.setVisibility(View.GONE);
+        }
     }
 
     @Override

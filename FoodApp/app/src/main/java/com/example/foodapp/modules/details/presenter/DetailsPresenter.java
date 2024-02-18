@@ -5,6 +5,7 @@ import com.example.foodapp.model.FoodCategory;
 import com.example.foodapp.model.FoodCountryResponse;
 import com.example.foodapp.model.Meal;
 import com.example.foodapp.model.MealRepository;
+import com.example.foodapp.model.Plane;
 import com.example.foodapp.modules.details.view.DetailsInterface;
 import com.example.foodapp.network.AppRemoteDataSource;
 import com.example.foodapp.network.NetworkCallBack;
@@ -25,6 +26,9 @@ public class DetailsPresenter implements NetworkCallBack {
         this.mealRepository=mealRepository;
         getAllMeals(id);
 //        appRemoteDataSource.getMealDetail(id);
+    }
+    public void insertPlan(Plane plane){
+        mealRepository.insertMealPlan(plane);
     }
     public void getAllMeals(String id)
     {

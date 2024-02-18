@@ -59,10 +59,10 @@ public class HomeFragment extends Fragment implements HomeInterface  {
         dailyImg=view.findViewById(R.id.dailyImg);
         constraintLayoutRandom=view.findViewById(R.id.constraintRandom);
         LinearLayoutManager categoryLayoutManager=new LinearLayoutManager(this.getContext());
-        categoryLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        categoryLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         categoryRecycler.setLayoutManager(categoryLayoutManager);
         LinearLayoutManager countriesLayoutManger=new LinearLayoutManager(this.getContext());
-        countriesLayoutManger.setOrientation(RecyclerView.HORIZONTAL);
+        countriesLayoutManger.setOrientation(RecyclerView.VERTICAL);
         countryRecycler.setLayoutManager(countriesLayoutManger);
         HomePresenter homePresenter=new HomePresenter(this);
         return view;

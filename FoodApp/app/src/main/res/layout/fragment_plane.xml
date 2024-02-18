@@ -2,18 +2,17 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/favoriteLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".modules.favorite.view.FavoriteFragment">
+    tools:context=".modules.plane.view.planeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RCFav"
-        android:layout_width="395dp"
-        android:layout_height="707dp"
+        android:id="@+id/RCPlan"
+        android:layout_width="394dp"
+        android:layout_height="684dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.064" />
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
