@@ -13,22 +13,20 @@
         android:theme="@style/Theme.FoodApp"
         tools:targetApi="31">
         <activity
-            android:name=".modules.splash.view.SplashActivity"
-            android:exported="true"
-            android:label="@string/title_activity_splash"
-            android:theme="@style/Theme.FoodApp" >
+            android:name=".MainActivity"
+            android:exported="true">
 
         </activity>
 
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".modules.splash.view.SplashActivity"
+            android:exported="true"
+            android:label="@string/title_activity_splash"
+            android:theme="@style/Theme.FoodApp" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/searchFragment">
+    app:startDestination="@id/loginFragment2">
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.example.foodapp.modules.signup.view.SignupFragment"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" >
+        tools:layout="@layout/fragment_signup">
         <action
             android:id="@+id/action_signupFragment_to_loginFragment2"
             app:destination="@id/loginFragment2" />
@@ -17,7 +17,7 @@
         android:id="@+id/loginFragment2"
         android:name="com.example.foodapp.modules.login.view.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment2_to_signupFragment"
             app:destination="@id/signupFragment" />
@@ -29,7 +29,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.foodapp.modules.home.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_listAllMeals"
             app:destination="@id/listAllMeals" />
@@ -57,7 +57,7 @@
         android:id="@+id/listAllMeals"
         android:name="com.example.foodapp.modules.ListOfMeals.view.ListAllMealsFragment"
         android:label="fragment_list_all_meals"
-        tools:layout="@layout/fragment_list_all_meals" >
+        tools:layout="@layout/fragment_list_all_meals">
         <argument
             android:name="categoryName"
             app:argType="string" />
@@ -72,7 +72,7 @@
         android:id="@+id/signoutFragment2"
         android:name="com.example.foodapp.SignOutFragment"
         android:label="fragment_sign_out2"
-        tools:layout="@layout/fragment_sign_out2" >
+        tools:layout="@layout/fragment_sign_out2">
         <action
             android:id="@+id/action_signoutFragment2_to_loginFragment2"
             app:destination="@id/loginFragment2" />
@@ -81,7 +81,7 @@
         android:id="@+id/detailsMealFragment"
         android:name="com.example.foodapp.modules.details.view.DetailsMealFragment"
         android:label="fragment_details_meal"
-        tools:layout="@layout/fragment_details_meal" >
+        tools:layout="@layout/fragment_details_meal">
         <argument
             android:name="IDMeal"
             app:argType="string" />
