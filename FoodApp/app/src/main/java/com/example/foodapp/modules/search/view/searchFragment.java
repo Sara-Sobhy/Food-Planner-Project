@@ -2,65 +2,115 @@ package com.example.foodapp.modules.search.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.SearchView;
 
 import com.example.foodapp.R;
+import com.example.foodapp.database.LocalDataSource;
+import com.example.foodapp.model.MealRepository;
+import com.example.foodapp.model.QueryResult;
+import com.example.foodapp.modules.plane.presenter.PlanPresenter;
+import com.example.foodapp.modules.search.presenter.SearchPresenter;
+import com.example.foodapp.network.AppRemoteDataSource;
+import com.google.android.material.search.SearchBar;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link searchFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class searchFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableEmitter;
+import io.reactivex.rxjava3.core.ObservableOnSubscribe;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
-    public searchFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment searchFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static searchFragment newInstance(String param1, String param2) {
-        searchFragment fragment = new searchFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+public class searchFragment extends Fragment implements SearchInterface{
+
+    RecyclerView recyclerView;
+    SearchPresenter searchPresenter;
+    String query;
+    SearchView searchBar;
+    SearchAdapter searchAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+
+        View view= inflater.inflate(R.layout.fragment_search, container, false);
+        recyclerView = view.findViewById(R.id.RCSearch);
+        searchBar=view.findViewById(R.id.searchBar);
+        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this.getContext());
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        searchPresenter = new SearchPresenter(this);
+        search();
+        return view;
+    }
+    public void search()
+    {
+        /* ahmed
+        * ahmed
+        * ahmed khaled
+        *
+        *  */
+        Observable<String> queryObservable= Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Throwable {
+                searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        emitter.onNext(newText);
+                        return false;
+                    }
+                });
+            }
+        }).debounce(200, TimeUnit.MILLISECONDS);
+        queryObservable.subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+
+            }
+
+            @Override
+            public void onNext(@NonNull String s) {
+                searchPresenter.getSearch(s);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        });
+    }
+
+    @Override
+    public void showResult(List<QueryResult> stringList) {
+        searchAdapter=new SearchAdapter(stringList);
+        recyclerView.setAdapter(searchAdapter);
+        searchAdapter.notifyDataSetChanged();
     }
 }

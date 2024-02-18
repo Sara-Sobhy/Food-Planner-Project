@@ -70,13 +70,9 @@ public class planeFragment extends Fragment implements PlanInterface{
         mealList.subscribeOn(Schedulers.io())
                 .doOnNext(planes -> Log.d("Plan", "showMeal: "+planes.size()))
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(mealItems -> {
-                    // Filter the meal items based on the user's email
-                    return mealItems.removeIf(mealItem -> !mealItem.getUserEmail().equals(currentUserEmail));
-                })
-
                 .subscribe(planes -> {
                     Log.d("Plan", "onChangediiiiii: "+planes);
+                    planes.removeIf(plane -> !plane.getUserEmail().equals(currentUserEmail));
                     if (planes != null) {
                         Log.d("Plan", "showMealFromPlan: "+planes);
                         PlanAdapter planAdapter = new PlanAdapter(requireContext(),planes, planeFragment.this);

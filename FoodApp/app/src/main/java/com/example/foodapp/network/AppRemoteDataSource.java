@@ -5,6 +5,7 @@ import android.util.Log;
 import com.example.foodapp.model.FoodCategory;
 import com.example.foodapp.model.FoodCategoryResponse;
 import com.example.foodapp.model.FoodCountryResponse;
+import com.example.foodapp.model.IngredientResponse;
 import com.example.foodapp.model.Meal;
 import com.example.foodapp.model.MealsResponse;
 
@@ -72,12 +73,21 @@ public class AppRemoteDataSource {
 
         Observable<MealsResponse> call=network.getMealByArea(area);
         return call.subscribeOn(Schedulers.io());
-
-
     }
 
     public Observable<MealsResponse> getMealDetail(String id){
         Observable<MealsResponse> call=network.getMealDetail(id);
+        return call.subscribeOn(Schedulers.io());
+    }
+
+    public Observable<IngredientResponse> getIngredientList()
+    {
+        Observable<IngredientResponse> call=network.getIngredientList();
+        return call.subscribeOn(Schedulers.io());
+    }
+    public Observable<MealsResponse> getMealsByName(String mealName)
+    {
+        Observable<MealsResponse> call=network.getMealByName(mealName);
         return call.subscribeOn(Schedulers.io());
     }
 }

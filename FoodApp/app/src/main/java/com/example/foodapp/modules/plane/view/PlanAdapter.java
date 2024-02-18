@@ -43,7 +43,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.MyViewHolder> 
 
         Log.d("TAG", "onBindViewHolderiiiiiiiiiiiiiii: " + planeList.get(position).getStrMeal());
         holder.textOne.setText(planeList.get(position).getStrMeal());
-        holder.textTwo.setText((CharSequence) planeList.get(position).getDate());
+        holder.textTwo.setText(String.valueOf(planeList.get(position).getDate()));
         Glide.with(context)
                 .load(planeList.get(position).getStrMealThumb())
                 .into(holder.img);

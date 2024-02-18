@@ -74,13 +74,9 @@ public class FavoriteFragment extends Fragment implements IFavourite{
         mealList.subscribeOn(Schedulers.io())
                 .doOnNext(meals -> Log.d("TAG", "showMeal: "+meals.size()))
                 .observeOn(AndroidSchedulers.mainThread())
-                .filter(mealItems -> {
-                    // Filter the meal items based on the user's email
-                    return mealItems.removeIf(mealItem -> !mealItem.getUserEmail().equals(currentUserEmail));
-                })
-
                 .subscribe(meals -> {
                     Log.d("TAG", "onChanged: "+meals);
+                    meals.removeIf(mealItem -> !mealItem.getUserEmail().equals(currentUserEmail));
                     if (meals != null) {
                         FavoriteAdapter favoriteRecyclerAdapter = new FavoriteAdapter(meals, requireContext(), FavoriteFragment.this);
                         recyclerView.setAdapter(favoriteRecyclerAdapter);

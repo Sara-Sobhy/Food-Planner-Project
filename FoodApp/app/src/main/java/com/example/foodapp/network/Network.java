@@ -5,6 +5,7 @@ package com.example.foodapp.network;
 import com.example.foodapp.model.FoodCategory;
 import com.example.foodapp.model.FoodCategoryResponse;
 import com.example.foodapp.model.FoodCountryResponse;
+import com.example.foodapp.model.IngredientResponse;
 import com.example.foodapp.model.Meal;
 import com.example.foodapp.model.MealsResponse;
 
@@ -32,4 +33,8 @@ public interface Network {
 
     @GET("lookup.php")
     Observable<MealsResponse> getMealDetail(@Query("i") String mealDetail);
+    @GET("list.php?i=list")
+    Observable<IngredientResponse> getIngredientList();
+    @GET("search.php")
+    Observable<MealsResponse> getMealByName(@Query("s") String mealName);
 }
